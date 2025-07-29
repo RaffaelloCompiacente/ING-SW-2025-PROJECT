@@ -9,5 +9,5 @@ package model;
         FRECCIABIANCA,
         FRECCIARGENTO,
         ITALO,
-        EUROCITY,
+        EUROCITY
     }

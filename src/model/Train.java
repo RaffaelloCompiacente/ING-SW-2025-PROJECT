@@ -15,11 +15,11 @@ public class Train{
     private TrainStatus trainStatus;
     private final boolean reservable;
 
-    public Train(String ID,TrainType type,LocalDate departureTime,LocalDate departureArrival,String departure,String arrival, int trainSeats ,Map<TravelClass,Integer> classSeats, boolean reservation){
+    public Train(String ID,TrainType type,LocalDateTime departureTime,LocalDateTime arrivalTime,String departure,String arrival, int trainSeats ,Map<TravelClass,Integer> classSeats, boolean reservation){
         this.trainID=ID;
         this.trainType=type;
         this.scheduledDeparture=departureTime;
-        this.scheduledArrival=departureArrival;
+        this.scheduledArrival=arrivalTime;
         this.departureStation=departure;
         this.arrivalStation=arrival;
         this.totalSeats=trainSeats;
@@ -41,7 +41,7 @@ public class Train{
 
    public boolean hasAvailableSeatsForClass(TravelClass travelClass){
         Integer seats= this.seatsPerClass.get(travelClass);
-        return seats!= null && seats.intValue()>0;
+        return seats!= null && seats>0;
    }
 
 

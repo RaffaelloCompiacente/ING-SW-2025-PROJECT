@@ -10,5 +10,5 @@ package model;
         SECONDA,
         PRIMA_PLUS,//alcuni interCity
         SMART,//classe base di Italo
-        CLUB_EXECUTIVE,//Classe superiore di ITALO
+        CLUB_EXECUTIVE//Classe superiore di ITALO
     }

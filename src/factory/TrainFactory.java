@@ -1,6 +1,8 @@
 package factory;
 
 import model.Train;
-import dto.TrainCreationRequest
+import dto.TrainCreationRequest;
 
-public class
+public interface TrainFactory{
+    Train createTrain(TrainCreationRequest request);
+}
