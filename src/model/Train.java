@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 public class Train{
     private final String trainID;
