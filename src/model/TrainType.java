@@ -1,7 +1,7 @@
 package model;
 
-public class TrainType{
-    public enum TrinType{
+
+    public enum TrainType{
         REGIONALE,
         REGIONALE_VELOCE,
         INTERCITY,
@@ -11,4 +11,3 @@ public class TrainType{
         ITALO,
         EUROCITY,
     }
-}

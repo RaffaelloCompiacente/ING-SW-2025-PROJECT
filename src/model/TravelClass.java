@@ -1,6 +1,6 @@
 package model;
 
-public class TravelClass{
+
     public enum TravelClass{
         STANDARD,
         PREMIUM,
@@ -12,4 +12,3 @@ public class TravelClass{
         SMART,//classe base di Italo
         CLUB_EXECUTIVE,//Classe superiore di ITALO
     }
-}
