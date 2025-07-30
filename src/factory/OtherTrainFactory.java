@@ -14,9 +14,7 @@ public class OtherTrainFactory implements TrainFactory{
         Map<TravelClass,Integer> input=req.getSeatsPerClass();
         TrainClassPolicy.validate(req.getTrainType(),input.keySet());
         Map<TravelClass,Integer> seats= new EnumMap<>(TravelClass.class);
-        for(Map.Entry<TravelClass,Integer> entry:input.entrySet()){
-           seats.put(entry.getKey(),entry.getValue());
-        }
+        seats.putAll(input);
          return new Train(
                 req.getTrainID(),
                 req.getTrainType(),
@@ -25,7 +23,8 @@ public class OtherTrainFactory implements TrainFactory{
                 req.getDepartureStation(),
                 req.getArrivalStation(),
                 req.getTotalSeats(),
-                seats
+                seats,
+                true
         );
     }
 }
