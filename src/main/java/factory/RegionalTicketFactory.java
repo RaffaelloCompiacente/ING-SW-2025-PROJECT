@@ -1,8 +1,8 @@
-package factory;
+package main.java.factory;
 
 import model.Ticket;
 
-public class RegionalTickeFactory implements TicketFactory{
+public class RegionalTicketFactory implements TicketFactory{
     @Override
     public Ticket createTicket(PurchaseTicketRequest req,String ID) {
         /*Ci sono due situazioni in cui il client può richiedere l'acquisto diretto e sono da previewTicket

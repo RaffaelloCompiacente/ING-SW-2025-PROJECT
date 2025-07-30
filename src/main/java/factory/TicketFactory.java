@@ -1,6 +1,6 @@
-package factory;
+/*package main.java.factory;
 
-import model.Ticket;
+import main.java.model.Ticket;
 public interface TicketFactory{
         Ticket createTicket(PurchaseTicketRequest);
-    }
+    }*/

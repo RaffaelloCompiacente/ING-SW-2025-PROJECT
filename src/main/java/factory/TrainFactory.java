@@ -1,7 +1,7 @@
-package factory;
+package main.java.factory;
 
-import model.Train;
-import dto.TrainCreationRequest;
+import main.java.model.Train;
+import main.java.dto.TrainCreationRequest;
 
 public interface TrainFactory{
     Train createTrain(TrainCreationRequest request);

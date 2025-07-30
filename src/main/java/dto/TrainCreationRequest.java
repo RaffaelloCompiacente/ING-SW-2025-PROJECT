@@ -1,7 +1,7 @@
 package main.java.dto;
 
-import model.TrainType;
-import model.TravelClass;
+import main.java.model.TrainType;
+import main.java.model.TravelClass;
 
 import java.time.LocalDateTime;
 import java.util.Map;
