@@ -14,7 +14,7 @@ public class RegionalTicketFactory implements TicketFactory{
                 req.getTrain(),
                 req.getPrice(),
                 ID,
-                req.getPurchasePreview().getTravelClass()
+                TravelClass."SECONDA"
         );
     }
 }
