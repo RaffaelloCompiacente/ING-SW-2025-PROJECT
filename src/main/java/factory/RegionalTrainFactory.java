@@ -1,8 +1,8 @@
-package main.java.factory;
+package factory;
 
-import main.java.model.*;
-import main.java.dto.*;
-import main.java.util.TrainClassPolicy;
+import model.*;
+import dto.*;
+import util.TrainClassPolicy;
 
 import java.util.Map;
 import java.util.EnumMap;

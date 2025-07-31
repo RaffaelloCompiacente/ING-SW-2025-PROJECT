@@ -1,6 +1,7 @@
-package main.java.factory;
+/*package factory;
 
-import main.java.model.Ticket;
+import model.Ticket;
+import java.util.Optional
 public interface TicketFactory{
-        Ticket createTicket(PurchaseTicketRequest req);
-    }
+        Ticket createTicket(PurchaseTicketRequest ,String ID,double price,Optional<String> assignedSeat);
+    }*/

@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;
-
+import java.util.Optional;
 
 
 public class Ticket{
@@ -16,9 +16,9 @@ public class Ticket{
     private final double finalPrice;
     private final TrainType trainType;
     private final TravelClass travelClass;
-    private final Optional<TicketSeat> assignedSeat;
+    private final Optional<String> assignedSeat;
 
-    public Ticket(Train train, double price,String ID,TravelClass tClass,TicketSeat seat ){
+    public Ticket(Train train, double price,String ID,TravelClass tClass,Optional<String> seat ){
         this.ticketID=ID;
         this.departureStation=train.getDepartureStation();
         this.arrivalStation=train.getArrivalStation();
@@ -29,7 +29,7 @@ public class Ticket{
         this.finalPrice=price;
         this.trainType=train.getTrainType();
         this.travelClass=tClass;
-        this.assignedSeat=seat;
+        this.assignedSeat= seat;
     }
 
     public String getTicketID(){return this.ticketID;}
@@ -42,5 +42,5 @@ public class Ticket{
     public double getFinalPrice(){return this.finalPrice;}
     public TrainType getTrainType(){return this.trainType;}
     public TravelClass getTravelClass(){return this.travelClass;}
-
+    public Optional<String> getSeat(){return this.assignedSeat;}
 }

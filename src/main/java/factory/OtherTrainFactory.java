@@ -1,12 +1,12 @@
-package main.java.factory;
+package factory;
 
-import main.java.model.*;
-import main.java.dto.*;
-import main.java.util.TrainClassPolicy;
+import model.*;
+import dto.*;
+import util.TrainClassPolicy;
 
 import java.util.Map;
 import java.util.EnumMap;
-import main.java.util.*;
+import util.*;
 
 public class OtherTrainFactory implements TrainFactory{
     @Override

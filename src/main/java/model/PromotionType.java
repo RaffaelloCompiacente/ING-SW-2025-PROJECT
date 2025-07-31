@@ -1,0 +1,8 @@
+package model;
+
+public enum PromotionType {
+    FIDELITY_POINT_GENERATIVE,
+    FIXED_AMOUNT_DISCOUNT,
+    PERCENTAGE_DISCOUNT,
+    VOUCHER_GENERATIVE
+}

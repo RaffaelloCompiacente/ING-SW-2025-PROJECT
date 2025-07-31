@@ -1,7 +1,7 @@
-package main.java.util;
+package util;
 
-import main.java.model.TrainType;
-import main.java.model.TravelClass;
+import model.TrainType;
+import model.TravelClass;
 import java.util.*;
 
 public class TrainClassPolicy{

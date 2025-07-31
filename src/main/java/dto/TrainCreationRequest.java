@@ -1,7 +1,7 @@
-package main.java.dto;
+package dto;
 
-import main.java.model.TrainType;
-import main.java.model.TravelClass;
+import model.TrainType;
+import model.TravelClass;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
@@ -30,7 +30,7 @@ public class TrainCreationRequest{
     @Min(100)
     @Max(1000)
     private final int totalSeats;
-    @Valid
+    //@Valid
     @Size(min=1,max=4)
     private final Map<@NotNull TravelClass,@NotNull @Min(1) Integer> seatsPerClass;
 
