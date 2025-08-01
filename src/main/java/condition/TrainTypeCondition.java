@@ -2,6 +2,7 @@ package condition;
 
 import model.TrainType;
 import model.Train;
+import model.Customer;
 
 import java.time.LocalDate;
 import java.util.List;

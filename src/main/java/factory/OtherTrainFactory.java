@@ -24,7 +24,8 @@ public class OtherTrainFactory implements TrainFactory{
                 req.getArrivalStation(),
                 req.getTotalSeats(),
                 seats,
-                true
+                true,
+                 req.getTrainStops()
         );
     }
 }

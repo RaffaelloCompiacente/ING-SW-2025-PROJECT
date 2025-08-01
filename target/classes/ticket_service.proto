@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package trenical.ticket;
+
+option java_multiple_files = true;
+option java_package = "com.trenical.grpc.ticket";
+option java_outer_classname = "TicketServiceProto";
+
+// Servizio per la gestione dei ticket ferroviari
+service TicketService {
+  // Restituisce una lista di anteprime di biglietti compatibili con i criteri di ricerca
+  rpc GetTicketPreviews (PreviewRequest) returns (PreviewResponse);
+}
+
+// Richiesta per ottenere le anteprime dei biglietti
+message PreviewRequest {
+  string departure_station = 1;         // Nome o codice stazione di partenza
+  string arrival_station = 2;           // Nome o codice stazione di arrivo
+  string date = 3;                      // Data del viaggio (formato ISO "YYYY-MM-DD")
+  string preferred_train_type = 4;      // Tipo di treno (es. "REGIONAL", "HIGH_SPEED") - opzionale
+  string preferred_travel_class = 5;    // Classe di servizio preferita (es. "FIRST", "ECONOMY") - opzionale
+}
+
+// Risposta contenente la lista di anteprime
+message PreviewResponse {
+  repeated TicketPreview previews = 1;
+}
+
+// Dettaglio dell’anteprima di un biglietto
+message TicketPreview {
+  string train_id = 1;
+  string departure_time = 2;            // Formato ISO: "YYYY-MM-DDTHH:MM"
+  string arrival_time = 3;              // Formato ISO: "YYYY-MM-DDTHH:MM"
+  string travel_class = 4;
+  double estimated_price = 5;
+  bool seat_reservation_required = 6;
+  int32 available_seats = 7;
+}

@@ -12,7 +12,7 @@ public class Customer{
     private String customerSurname;
     private String email;
     private String passwordHash;
-    private Optional<FidelityLevel> fidelityLevel;
+    private Optional<TrenicalFidelity> fidelityLevel;
     private boolean wantsPromotionalNotifications;
     private Set<String>  followedTrains;
 
@@ -32,7 +32,7 @@ public class Customer{
     public String getCustomerSurname(){return this.customerSurname;}
     public String getEmail(){return this.email;}
     public String getPasswordHash(){return this.passwordHash;}
-    public Optional<FidelityLevel> getFidelityLevel(){return this.fidelityLevel;}
+    public Optional<TrenicalFidelity> getFidelityLevel(){return this.fidelityLevel;}
     public boolean getPromotionalPreferencies(){return this.wantsPromotionalNotifications;}
     private Set<String> getFollowedTrains(){return this.followedTrains;}
 

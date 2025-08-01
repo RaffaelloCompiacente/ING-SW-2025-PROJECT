@@ -2,10 +2,13 @@ package dto;
 
 import model.TrainType;
 import model.TravelClass;
+import model.TrainStop;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.List;
+
 
 public class TrainCreationRequest{
     @NotNull
@@ -33,8 +36,11 @@ public class TrainCreationRequest{
     //@Valid
     @Size(min=1,max=4)
     private final Map<@NotNull TravelClass,@NotNull @Min(1) Integer> seatsPerClass;
+    @NotNull
+    @Size(min=2)
+    private final List<TrainStop> trainStops;
 
-    public TrainCreationRequest(String ID,String dStation,String aStation,LocalDateTime dTime,LocalDateTime aTime,TrainType type,int seats,Map<TravelClass,Integer> seatsClass){
+    public TrainCreationRequest(String ID,String dStation,String aStation,LocalDateTime dTime,LocalDateTime aTime,TrainType type,int seats,Map<TravelClass,Integer> seatsClass,List<TrainStop> stops){
         this.trainId=ID;
         this.departureStation=dStation;
         this.arrivalStation=aStation;
@@ -43,6 +49,7 @@ public class TrainCreationRequest{
         this.trainType=type;
         this.totalSeats=seats;
         this.seatsPerClass=seatsClass;
+        this.trainStops=stops;
     }
 
     public String getTrainID(){return this.trainId;}
@@ -53,6 +60,7 @@ public class TrainCreationRequest{
     public String getArrivalStation(){return this.arrivalStation;}
     public int getTotalSeats(){return this.totalSeats;}
     public Map<TravelClass,Integer> getSeatsPerClass(){return this.seatsPerClass;}
+    public List<TrainStop> getTrainStops(){return this.trainStops;}
 
 
 

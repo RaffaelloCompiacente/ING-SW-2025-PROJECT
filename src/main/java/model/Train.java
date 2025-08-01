@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.List;
 
 public class Train{
     private final String trainID;
@@ -14,8 +15,9 @@ public class Train{
     private final TrainType trainType;
     private TrainStatus trainStatus;
     private final boolean reservable;
+    private final List<TrainStop> trainStops;
 
-    public Train(String ID,TrainType type,LocalDateTime departureTime,LocalDateTime arrivalTime,String departure,String arrival, int trainSeats ,Map<TravelClass,Integer> classSeats, boolean reservation){
+    public Train(String ID,TrainType type,LocalDateTime departureTime,LocalDateTime arrivalTime,String departure,String arrival, int trainSeats ,Map<TravelClass,Integer> classSeats, boolean reservation,List<TrainStop> stops){
         this.trainID=ID;
         this.trainType=type;
         this.scheduledDeparture=departureTime;
@@ -26,6 +28,7 @@ public class Train{
         this.trainStatus=TrainStatus.ON_TIME;
         this.seatsPerClass=classSeats;
         this.reservable=reservation;
+        this.trainStops=stops;
     }
 
     public String getTrainID(){return trainID;}
@@ -38,6 +41,7 @@ public class Train{
     public TrainStatus getTrainStatus(){return trainStatus;}
     public TrainType getTrainType(){return trainType;}
     public boolean getReservable(){return reservable;}
+    public List<TrainStop> getTrainStop(){return this.trainStops;}
 
    public boolean hasAvailableSeatsForClass(TravelClass travelClass){
         Integer seats= this.seatsPerClass.get(travelClass);

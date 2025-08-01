@@ -2,6 +2,7 @@ package condition;
 
 import model.Train;
 import model.Customer;
+import model.TrenicalFidelity;
 import java.time.LocalDate;
 
 
@@ -13,7 +14,9 @@ public class TrainFidelityCondition implements PromotionCondition{
     }
 
     public boolean isSatisfiedBy(Customer customer,Train train,LocalDate date){
-        return customer.getFidelityLevel().ordinal()>=requiredLevel;
+        return customer.getFidelityLevel()
+                .map(level -> level.ordinal() >= requiredLevel.ordinal())
+                .orElse(false);
     }
 
 }

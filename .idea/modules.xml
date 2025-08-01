@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Trenical.iml" filepath="$PROJECT_DIR$/.idea/Trenical.iml" />
+      <module fileurl="file://$PROJECT_DIR$/trenical.iml" filepath="$PROJECT_DIR$/trenical.iml" />
     </modules>
   </component>
 </project>

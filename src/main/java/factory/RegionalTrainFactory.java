@@ -23,7 +23,8 @@ public class RegionalTrainFactory implements TrainFactory{
                 req.getArrivalStation(),
                 req.getTotalSeats(),
                 seats,
-                false
+                false,
+                req.getTrainStops()
         );
     }
 }
