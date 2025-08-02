@@ -39,21 +39,24 @@ public final class TicketServiceProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\024ticket_service.proto\022\017trenical.ticket\"" +
-      "\220\001\n\016PreviewRequest\022\031\n\021departure_station\030" +
-      "\001 \001(\t\022\027\n\017arrival_station\030\002 \001(\t\022\014\n\004date\030\003" +
-      " \001(\t\022\034\n\024preferred_train_type\030\004 \001(\t\022\036\n\026pr" +
-      "eferred_travel_class\030\005 \001(\t\"C\n\017PreviewRes" +
-      "ponse\0220\n\010previews\030\001 \003(\0132\036.trenical.ticke" +
-      "t.TicketPreview\"\272\001\n\rTicketPreview\022\020\n\010tra" +
-      "in_id\030\001 \001(\t\022\026\n\016departure_time\030\002 \001(\t\022\024\n\014a" +
-      "rrival_time\030\003 \001(\t\022\024\n\014travel_class\030\004 \001(\t\022" +
-      "\027\n\017estimated_price\030\005 \001(\001\022!\n\031seat_reserva" +
-      "tion_required\030\006 \001(\010\022\027\n\017available_seats\030\007" +
-      " \001(\0052g\n\rTicketService\022V\n\021GetTicketPrevie" +
-      "ws\022\037.trenical.ticket.PreviewRequest\032 .tr" +
-      "enical.ticket.PreviewResponseB0\n\030com.tre" +
-      "nical.grpc.ticketB\022TicketServiceProtoP\001b" +
-      "\006proto3"
+      "\222\002\n\016PreviewRequest\022\031\n\021departure_station\030" +
+      "\001 \001(\t\022\027\n\017arrival_station\030\002 \001(\t\022\021\n\004date\030\003" +
+      " \001(\tH\000\210\001\001\022\021\n\004time\030\004 \001(\tH\001\210\001\001\022\035\n\020passenge" +
+      "r_number\030\005 \001(\005H\002\210\001\001\022\035\n\020allow_connection\030" +
+      "\006 \001(\010H\003\210\001\001\022\032\n\rreturn_ticket\030\007 \001(\010H\004\210\001\001B\007" +
+      "\n\005_dateB\007\n\005_timeB\023\n\021_passenger_numberB\023\n" +
+      "\021_allow_connectionB\020\n\016_return_ticket\"C\n\017" +
+      "PreviewResponse\0220\n\010previews\030\001 \003(\0132\036.tren" +
+      "ical.ticket.TicketPreview\"\272\001\n\rTicketPrev" +
+      "iew\022\020\n\010train_id\030\001 \001(\t\022\026\n\016departure_time\030" +
+      "\002 \001(\t\022\024\n\014arrival_time\030\003 \001(\t\022\024\n\014travel_cl" +
+      "ass\030\004 \001(\t\022\027\n\017estimated_price\030\005 \001(\001\022!\n\031se" +
+      "at_reservation_required\030\006 \001(\010\022\027\n\017availab" +
+      "le_seats\030\007 \001(\0052g\n\rTicketService\022V\n\021GetTi" +
+      "cketPreviews\022\037.trenical.ticket.PreviewRe" +
+      "quest\032 .trenical.ticket.PreviewResponseB" +
+      "0\n\030com.trenical.grpc.ticketB\022TicketServi" +
+      "ceProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -64,7 +67,7 @@ public final class TicketServiceProto {
     internal_static_trenical_ticket_PreviewRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_trenical_ticket_PreviewRequest_descriptor,
-        new java.lang.String[] { "DepartureStation", "ArrivalStation", "Date", "PreferredTrainType", "PreferredTravelClass", });
+        new java.lang.String[] { "DepartureStation", "ArrivalStation", "Date", "Time", "PassengerNumber", "AllowConnection", "ReturnTicket", "Date", "Time", "PassengerNumber", "AllowConnection", "ReturnTicket", });
     internal_static_trenical_ticket_PreviewResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_trenical_ticket_PreviewResponse_fieldAccessorTable = new

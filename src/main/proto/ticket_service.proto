@@ -16,9 +16,11 @@ service TicketService {
 message PreviewRequest {
   string departure_station = 1;         // Nome o codice stazione di partenza
   string arrival_station = 2;           // Nome o codice stazione di arrivo
-  string date = 3;                      // Data del viaggio (formato ISO "YYYY-MM-DD")
-  string preferred_train_type = 4;      // Tipo di treno (es. "REGIONAL", "HIGH_SPEED") - opzionale
-  string preferred_travel_class = 5;    // Classe di servizio preferita (es. "FIRST", "ECONOMY") - opzionale
+  optional string date = 3;             // Data del viaggio (formato ISO "YYYY-MM-DD")
+  optional string time=4;               // Orario del viaggio (formato HH:MM)
+  optional int32 passenger_number= 5;   // Numero di passeggeri
+  optional bool allow_connection = 6;   // Permettere viaggi con cambi
+  optional bool return_ticket=7;        // Permette di selzionare viaggio andata e ritorno
 }
 
 // Risposta contenente la lista di anteprime

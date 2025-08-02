@@ -1,0 +1,30 @@
+syntax="proto3";
+
+package trenical.common;
+
+option java_package="com.trenical.grpc.common";
+
+message TravelSolutionDTO{
+  repeated TrainDTO solutions=1;
+}
+
+message TrainStopDTO{
+  string station=1;
+  string departure_time=2;
+  string arrival_time=3;
+}
+
+message TrainDTO{
+  string train_id=1;
+  string origin=2;
+  string destination=3;
+  int32 seats=4;
+  string departure_date=5;
+  string arrival_date=6;
+  map<string, int32> seats_per_class=7;
+  string type=8;
+  string status=9;
+  bool reservable=10;
+  repeated TrainStopDTO stops=11;
+}
+

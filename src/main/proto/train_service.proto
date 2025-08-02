@@ -1,19 +1,21 @@
 syntax = "proto3";
 
-package trenical.ticket;
+package trenical.train;
+
+import "common.proto";//importing del messaggio Train;
 
 option java_multiple_files = true;
-option java_package = "com.trenical.grpc.ticket";
-option java_outer_classname = "TicketServiceProto";
+option java_package = "com.trenical.grpc.train";
+option java_outer_classname = "TrainServiceProto";
 
 // Servizio per la gestione dei ticket ferroviari
-service TicketService {
+service TrainService {
   // Restituisce una lista di anteprime di biglietti compatibili con i criteri di ricerca
-  rpc GetTicketPreviews (PreviewRequest) returns (PreviewResponse);
+  rpc SearchTrainByFilters (TrainSearchRequest) returns (TrainSearchResponse);
 }
 
 // Richiesta per ottenere le anteprime dei biglietti
-message PreviewRequest {
+message TrainSearchRequest {
   string departure_station = 1;         // Nome o codice stazione di partenza
   string arrival_station = 2;           // Nome o codice stazione di arrivo
   optional string date = 3;             // Data del viaggio (formato ISO "YYYY-MM-DD")
@@ -24,17 +26,7 @@ message PreviewRequest {
 }
 
 // Risposta contenente la lista di anteprime
-message PreviewResponse {
-  repeated TicketPreview previews = 1;
+message TrainSearchResponse {
+  repeated trenical.common.TravelSolutionDTO travels = 1;
 }
 
-// Dettaglio dell’anteprima di un biglietto
-message TicketPreview {
-  string train_id = 1;
-  string departure_time = 2;            // Formato ISO: "YYYY-MM-DDTHH:MM"
-  string arrival_time = 3;              // Formato ISO: "YYYY-MM-DDTHH:MM"
-  string travel_class = 4;
-  double estimated_price = 5;
-  bool seat_reservation_required = 6;
-  int32 available_seats = 7;
-}
