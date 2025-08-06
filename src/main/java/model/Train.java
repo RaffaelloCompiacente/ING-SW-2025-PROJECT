@@ -42,6 +42,7 @@ public class Train{
     public TrainType getTrainType(){return trainType;}
     public boolean getReservable(){return reservable;}
     public List<TrainStop> getTrainStop(){return this.trainStops;}
+    public int getTotalSeats(){return this.totalSeats;}
 
    public boolean hasAvailableSeatsForClass(TravelClass travelClass){
         Integer seats= this.seatsPerClass.get(travelClass);

@@ -7,11 +7,14 @@ import com.trenical.grpc.train.TrainSearchResponse;
 import com.trenical.grpc.train.TrainServiceGrpc;
 import dto.InternalTrainQuery;
 import dto.TravelSolution;
+import factory.TrainRepositoryFactory;
 import io.grpc.stub.StreamObserver;
 import model.Train;
 import model.TrainStop;
+import repository.TrainRepository;
 import service.travel.TravelComposer;
 
+import java.io.IOException;
 import java.util.*;
 
 
@@ -19,20 +22,20 @@ public class TrainServiceImpl extends TrainServiceGrpc.TrainServiceImplBase{
     private final TrainRepository trainRepository;
     private Map<String,List<Train>> trainIndexCache;
 
-    public TrainServiceImpl(TrainRepository repo){
-        this.trainRepository=repo;
+    public TrainServiceImpl() throws IOException{
+        this.trainRepository = TrainRepositoryFactory.createTrainRepository();
         this.trainIndexCache= null;
     }
     @Override
     public void searchTrainByFilters(TrainSearchRequest req, StreamObserver<TrainSearchResponse> responseObserver){
         InternalTrainQuery itq= InternalQueryMapper.fromSearchTrainRequest(req);
         if(trainIndexCache==null){
-            List<Train> allTrains=trainRepository.findAll();
+            List<Train> allTrains=trainRepository.getAllTrains();
             trainIndexCache=buildTrainIndex(allTrains);
         }
         TravelComposer travelComposer= new TravelComposer(trainIndexCache);
         List<TravelSolution> validTravel = travelComposer.findTravelByCriteria(itq);
-        TrainSearchResponse response =InternalQueryMapper.toGrpcSearchTrainResponse(validTravel);
+        TrainSearchResponse response =InternalQueryMapper.mapToGrpcSearchTrainResponse(validTravel);
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }

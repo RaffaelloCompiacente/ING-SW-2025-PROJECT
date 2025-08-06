@@ -7,10 +7,10 @@ import java.util.*;
 public class TrainClassPolicy{
     private static final Map<TrainType,Set<TravelClass>> ALLOWED_CLASSES= new EnumMap<>(TrainType.class);
     static{
-        ALLOWED_CLASSES.put(TrainType.FRECCIAROSSA,EnumSet.of(TravelClass.STANDARD,TravelClass.BUSINESS,TravelClass.EXECUTIVE,TravelClass.PREMIUM));
+        ALLOWED_CLASSES.put(TrainType.FRECCIA_ROSSA,EnumSet.of(TravelClass.STANDARD,TravelClass.BUSINESS,TravelClass.EXECUTIVE,TravelClass.PREMIUM));
         ALLOWED_CLASSES.put(TrainType.ITALO,EnumSet.of(TravelClass.SMART,TravelClass.PRIMA,TravelClass.CLUB_EXECUTIVE));
-        ALLOWED_CLASSES.put(TrainType.FRECCIABIANCA,EnumSet.of(TravelClass.PRIMA,TravelClass.SECONDA));
-        ALLOWED_CLASSES.put(TrainType.FRECCIARGENTO,EnumSet.of(TravelClass.PRIMA,TravelClass.SECONDA));
+        ALLOWED_CLASSES.put(TrainType.FRECCIA_BIANCA,EnumSet.of(TravelClass.PRIMA,TravelClass.SECONDA));
+        ALLOWED_CLASSES.put(TrainType.FRECCIA_RGENTO,EnumSet.of(TravelClass.PRIMA,TravelClass.SECONDA));
         ALLOWED_CLASSES.put(TrainType.INTERCITY,EnumSet.of(TravelClass.PRIMA,TravelClass.PRIMA_PLUS,TravelClass.SECONDA));
         ALLOWED_CLASSES.put(TrainType.EUROCITY,EnumSet.of(TravelClass.PRIMA,TravelClass.SECONDA));
         ALLOWED_CLASSES.put(TrainType.REGIONALE,EnumSet.of(TravelClass.SECONDA));

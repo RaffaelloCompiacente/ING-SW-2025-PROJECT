@@ -5,9 +5,9 @@ package model;
         REGIONALE,
         REGIONALE_VELOCE,
         INTERCITY,
-        FRECCIAROSSA,
-        FRECCIABIANCA,
-        FRECCIARGENTO,
+        FRECCIA_ROSSA,
+        FRECCIA_BIANCA,
+        FRECCIA_RGENTO,
         ITALO,
         EUROCITY
     }

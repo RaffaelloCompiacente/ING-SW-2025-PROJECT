@@ -19,7 +19,7 @@ import java.util.HashSet;
 public class TravelComposer{
     private final Map<String, List<Train>> trainByStation;
     private final int MIN_TRANSFER_MINUTES=10;
-    private final int MAX_TRANSFER_MINUTES=30;
+    private final int MAX_TRANSFER_MINUTES=3000;
     private final int MAX_ALLOWED_CONNECTIONS=6;
 
     public TravelComposer(Map<String,List<Train>> indexStation){
@@ -64,19 +64,28 @@ public class TravelComposer{
         for(Train candidate: trainByStation.getOrDefault(currentStation,List.of())){
             if(usedTrains.contains(candidate))continue;
 
+            System.out.println(" Tentativo da stazione: " + currentStation + " verso: " + destinationStation);
+
+            System.out.println(" Analizzo treno: " + candidate.getTrainID() + " che parte da " + candidate.getDepartureStation());
+
             LocalDateTime candidateDeparture=getDepartureFrom(candidate,currentStation);
             if(candidateDeparture== null)continue;
 
+            System.out.println("   ➤ Orario partenza da " + currentStation + ": " + candidateDeparture);
+
+
             Duration gap= Duration.between(earliestDeparture,candidateDeparture);
 
-            if(gap.toMinutes()<MIN_TRANSFER_MINUTES)continue;
-            if(gap.toMinutes()>MAX_TRANSFER_MINUTES)continue;
+           // if(gap.toMinutes()<MIN_TRANSFER_MINUTES)continue;
+            //if(gap.toMinutes()>MAX_TRANSFER_MINUTES)continue;
 
             usedTrains.add(candidate);
             currentPath.add(candidate);
 
             String nextStation=getArrivalStationFrom(candidate,currentStation);
+            System.out.println("   ➤ Prossima stazione: " + nextStation);
             LocalDateTime nextArrival=getArrivalAt(candidate,nextStation);
+            System.out.println("   ➤ Orario arrivo alla prossima: " + nextArrival);
 
             findPaths(nextStation,nextArrival,destinationStation,currentPath,usedTrains,allSolutions,maxDepth);
 
@@ -96,25 +105,46 @@ public class TravelComposer{
                 .map(TrainStop::getStopDepartureDate).findFirst().orElse(null);
     }
 
-    private LocalDateTime getArrivalAt(Train train,String station){
-        if(train.getArrivalStation().equals(station))return train.getScheduledArrival();
-        return train.getTrainStop().stream().filter(stop->stop.getStopStation().equals(station))
-                .map(TrainStop::getStopArrivalDate).findFirst().orElse(null);
+    private LocalDateTime getArrivalAt(Train train, String station) {
+        if (station == null) return null;
+
+        if (train.getArrivalStation().equals(station)) {
+            return train.getScheduledArrival();
+        }
+        if (train.getDepartureStation().equals(station)) {
+            return train.getScheduledDeparture(); // ritorna la partenza se stazione di partenza
+        }
+        return train.getTrainStop().stream()
+                .filter(stop -> stop.getStopStation().equals(station))
+                .map(TrainStop::getStopArrivalDate)
+                .findFirst()
+                .orElse(null);
     }
 
-    private String getArrivalStationFrom(Train train,String fromStation){
-        List<TrainStop> stops=train.getTrainStop();
-        for(int i=0;i<stops.size();i++){
-            if(stops.get(i).getStopStation().equals(fromStation) && i+1<stops.size()){
-                return stops.get(i+1).getStopStation();
+    private String getArrivalStationFrom(Train train, String fromStation) {
+        // Se la stazione di partenza è fromStation, restituisci il primo stop (se c'è)
+        if (train.getDepartureStation().equals(fromStation)) {
+            if (!train.getTrainStop().isEmpty()) {
+                return train.getTrainStop().get(0).getStopStation();
+            } else {
+                return train.getArrivalStation(); // treno diretto senza stop
             }
         }
-        if(train.getDepartureStation().equals(fromStation)){
-            return train.getArrivalStation();
-        }
-        return null;
-    }
 
+        // Cerca nella lista degli stop
+        List<TrainStop> stops = train.getTrainStop();
+        for (int i = 0; i < stops.size(); i++) {
+            if (stops.get(i).getStopStation().equals(fromStation)) {
+                if (i + 1 < stops.size()) {
+                    return stops.get(i + 1).getStopStation(); // prossimo stop
+                } else {
+                    return train.getArrivalStation(); // ultimo stop → destinazione finale
+                }
+            }
+        }
+
+        return null; // fromStation non trovata
+    }
 
 
 }

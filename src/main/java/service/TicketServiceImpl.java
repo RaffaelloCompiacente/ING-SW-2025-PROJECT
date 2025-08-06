@@ -1,4 +1,4 @@
-package service;
+/*package service;
 
 import adapter.InternalQueryMapper;
 import com.trenical.grpc.common.Common.TravelSolutionDTO;
@@ -41,4 +41,4 @@ public class TicketServiceImpl extends TicketServiceGrpc.TicketServiceImplBase{
         responseObserver.onNext(previewResponse);
         responseObserver.onCompleted();
     }
-}
+}*/

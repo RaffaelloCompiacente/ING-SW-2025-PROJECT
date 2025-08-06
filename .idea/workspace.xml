@@ -6,23 +6,24 @@
   <component name="ChangeListManager">
     <list default="true" id="b14b899f-82ed-4540-a0a2-82f0429595e8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/adapter/InternalQueryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/adapter/InternalQueryMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/factory/TrainRepositoryFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/factory/TrainRepositoryFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Train.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Train.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/TrainType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/TrainType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/TrainRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/TrainRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/impl/JsonoTrainRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/impl/JsonoTrainRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/TicketServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/TicketServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/common.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/common.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/proto/ticket_service.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/ticket_service.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Common.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/trenical/grpc/ticket/PreviewRequest$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/trenical/grpc/ticket/PreviewRequest$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/trenical/grpc/ticket/PreviewRequest$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/trenical/grpc/ticket/PreviewRequest$Builder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/trenical/grpc/ticket/PreviewRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/trenical/grpc/ticket/PreviewRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/trenical/grpc/ticket/PreviewRequestOrBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/trenical/grpc/ticket/PreviewRequestOrBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/trenical/grpc/ticket/TicketServiceProto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/trenical/grpc/ticket/TicketServiceProto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/common.proto" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/common.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ticket_service.proto" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ticket_service.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/protobuf/java/Common.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/protobuf/java/com/trenical/grpc/ticket/PreviewRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/protobuf/java/com/trenical/grpc/ticket/PreviewRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/protobuf/java/com/trenical/grpc/ticket/PreviewRequestOrBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/protobuf/java/com/trenical/grpc/ticket/PreviewRequestOrBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/protobuf/java/com/trenical/grpc/ticket/TicketServiceProto.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/protobuf/java/com/trenical/grpc/ticket/TicketServiceProto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/TrainServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/TrainServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/travel/TravelComposer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/travel/TravelComposer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/TrainClassPolicy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/TrainClassPolicy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/TestOne.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestOne.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/common.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/Train.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Train.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/TrainType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/TrainType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ticket_service.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/train_service.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/util/TrainClassPolicy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/util/TrainClassPolicy.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,22 +41,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/utente/Desktop/Trenical&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.TravelComposerIntegrationTest.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/utente/Desktop/Trenical",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -72,7 +74,8 @@
       <option name="presentableId" value="Default" />
       <updated>1754062703372</updated>
       <workItem from="1754062704639" duration="18647000" />
-      <workItem from="1754087272083" duration="24471000" />
+      <workItem from="1754087272083" duration="39862000" />
+      <workItem from="1754406615231" duration="11101000" />
     </task>
     <servers />
   </component>

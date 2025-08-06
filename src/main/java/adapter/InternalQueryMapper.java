@@ -4,6 +4,8 @@ package adapter;
 import com.trenical.grpc.common.Common;
 import com.trenical.grpc.ticket.PreviewRequest;
 import com.trenical.grpc.train.TrainSearchRequest;
+import com.trenical.grpc.train.TrainSearchResponse;
+import com.trenical.grpc.common.Common.*;
 import dto.InternalTrainQuery;
 import dto.TravelSolution;
 import model.TrainStop;
@@ -107,5 +109,48 @@ public class InternalQueryMapper{
         List<TravelSolution> travelSolutions=list.stream().map(InternalQueryMapper::mapTravelSolution).toList();
         return travelSolutions;
     };
+
+    public static TrainSearchResponse mapToGrpcSearchTrainResponse(List<TravelSolution> travels){
+        TrainSearchResponse.Builder responseBuilder=TrainSearchResponse.newBuilder();
+
+        for(TravelSolution solution:travels){
+            TravelSolutionDTO.Builder solutionBuilder=TravelSolutionDTO.newBuilder();
+
+            for(Train train:solution.getTrainList()){
+                TrainDTO trainDTO=mapToTrainDTO(train);
+                solutionBuilder.addSolutions(trainDTO);
+            }
+
+            responseBuilder.addTravels(solutionBuilder.build());
+        }
+        return responseBuilder.build();
+    }
+
+    private static TrainDTO mapToTrainDTO(Train train){
+
+        TrainDTO.Builder trainBuilder=TrainDTO.newBuilder()
+                .setTrainId(train.getTrainID())
+                .setOrigin(train.getDepartureStation())
+                .setDestination(train.getArrivalStation())
+                .setSeats(train.getTotalSeats())
+                .setDepartureDate(train.getScheduledDeparture().toString())
+                .setArrivalDate(train.getScheduledArrival().toString())
+                .setType(train.getTrainType().name())
+                .setStatus(train.getTrainStatus().name())
+                .setReservable(train.getReservable());
+
+                for(Map.Entry<TravelClass,Integer> entry: train.getSeatsPerClass().entrySet()){
+                    trainBuilder.putSeatsPerClass(entry.getKey().name(),entry.getValue());
+                }
+
+                for(TrainStop stop: train.getTrainStop()){
+                    TrainStopDTO stopDTO= TrainStopDTO.newBuilder()
+                            .setStation(stop.getStopStation())
+                            .setArrivalTime(stop.getStopArrivalDate().toString())
+                            .setDepartureTime(stop.getStopDepartureDate().toString()).build();
+                    trainBuilder.addStops(stopDTO);
+                }
+                return trainBuilder.build();
+    }
 
 }
