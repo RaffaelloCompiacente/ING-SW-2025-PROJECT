@@ -7,144 +7,159 @@ import model.TrainStop;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.*;
 
+/**
+ * TravelComposer riscritto:
+ * - Rispetta vincoli temporali (min/max cambio).
+ * - Evita loop per stazioni e riuso dello stesso treno.
+ * - Consente di scendere a QUALSIASI stazione successiva del treno scelto.
+ * - Limita il numero di leg (treni) per soluzione.
+ */
+public class TravelComposer {
 
-
-
-public class TravelComposer{
     private final Map<String, List<Train>> trainByStation;
-    private final int MIN_TRANSFER_MINUTES=10;
-    private final int MAX_TRANSFER_MINUTES=3000;
-    private final int MAX_ALLOWED_CONNECTIONS=6;
 
-    public TravelComposer(Map<String,List<Train>> indexStation){
-        this.trainByStation=indexStation;
+    private final int MIN_TRANSFER_MINUTES = 10;
+    private final int MAX_TRANSFER_MINUTES = 12 * 60;
+    private final int MAX_TRAINS_PER_SOLUTION = 6;
+
+    public TravelComposer(Map<String, List<Train>> indexStation) {
+        this.trainByStation = indexStation != null ? indexStation : Map.of();
     }
 
-    public List<TravelSolution> findTravelByCriteria(InternalTrainQuery query){
-        List<List<Train>> validPaths = new ArrayList<>();
-        Set<Train> usedTrains= new HashSet<>();
-        List<Train> currentPath = new ArrayList<>();
+    public List<TravelSolution> findTravelByCriteria(InternalTrainQuery query) {
+        String origin = query.getDepartureStation();
+        String destination = query.getArrivalStation();
+        LocalDateTime earliestDeparture = query.getDepartureTresholds();
 
-        findPaths(
-                query.getDepartureStation(),
-                query.getDepartureTresholds(),
-                query.getArrivalStation(),
-                currentPath,
-                usedTrains,
-                validPaths,
-                MAX_ALLOWED_CONNECTIONS //numero massimo di cambi
-        );
-        return validPaths.stream().map(TravelSolution::new).toList();
+        //  Limite dinamico in base al flag connections
+        final int maxLegs = (query.getWithoutConnections() ? MAX_TRAINS_PER_SOLUTION : 1);
+
+        List<List<Train>> paths = new ArrayList<>();
+        dfs(origin, destination, earliestDeparture,
+                new ArrayList<>(), new HashSet<>(), new HashSet<>(Set.of(origin)),
+                paths, maxLegs);
+
+        return paths.stream().map(TravelSolution::new).toList();
     }
 
-    private void findPaths(
-            String currentStation,
-            LocalDateTime earliestDeparture,
-            String destinationStation,
-            List<Train> currentPath,
-            Set<Train> usedTrains,
-            List<List<Train>> allSolutions,
-            int maxDepth
-    ){
-        if(currentPath.size()>maxDepth)return;
-        if(!currentPath.isEmpty()){
-            Train lastTrain=currentPath.get(currentPath.size()-1);
-            if(reachesDestination(lastTrain,destinationStation)){
-                allSolutions.add(new ArrayList<>(currentPath));
-                return;
+    private void dfs(String currentStation,
+                     String destination,
+                     LocalDateTime earliestDeparture,
+                     List<Train> currentPath,
+                     Set<Train> usedTrains,
+                     Set<String> visitedStations,
+                     List<List<Train>> solutions,
+                     int maxLegs) {
+
+        // Se ho già raggiunto il numero max di treni, non posso proseguire
+        if (currentPath.size() >= maxLegs) return;
+
+        // ... dentro dfs(...)
+
+        List<Train> candidates = trainByStation.getOrDefault(currentStation, List.of());
+        if (candidates.isEmpty()) return;
+
+        for (Train train : candidates) {
+            if (usedTrains.contains(train)) continue;
+
+            LocalDateTime departHere = departureAt(train, currentStation);
+            if (departHere == null) continue;
+
+            long waitMin = Duration.between(earliestDeparture, departHere).toMinutes();
+            if (!currentPath.isEmpty()) {
+                if (waitMin < MIN_TRANSFER_MINUTES) continue;
+                if (waitMin > MAX_TRANSFER_MINUTES) continue;
+            } else if (waitMin < 0) {
+                continue;
             }
-        }
 
-        for(Train candidate: trainByStation.getOrDefault(currentStation,List.of())){
-            if(usedTrains.contains(candidate))continue;
+            List<NextHop> downstream = downstreamStops(train, currentStation);
+            if (downstream.isEmpty()) continue;
 
-            System.out.println(" Tentativo da stazione: " + currentStation + " verso: " + destinationStation);
+            usedTrains.add(train);
+            currentPath.add(train);
 
-            System.out.println(" Analizzo treno: " + candidate.getTrainID() + " che parte da " + candidate.getDepartureStation());
-
-            LocalDateTime candidateDeparture=getDepartureFrom(candidate,currentStation);
-            if(candidateDeparture== null)continue;
-
-            System.out.println("   ➤ Orario partenza da " + currentStation + ": " + candidateDeparture);
-
-
-            Duration gap= Duration.between(earliestDeparture,candidateDeparture);
-
-           // if(gap.toMinutes()<MIN_TRANSFER_MINUTES)continue;
-            //if(gap.toMinutes()>MAX_TRANSFER_MINUTES)continue;
-
-            usedTrains.add(candidate);
-            currentPath.add(candidate);
-
-            String nextStation=getArrivalStationFrom(candidate,currentStation);
-            System.out.println("   ➤ Prossima stazione: " + nextStation);
-            LocalDateTime nextArrival=getArrivalAt(candidate,nextStation);
-            System.out.println("   ➤ Orario arrivo alla prossima: " + nextArrival);
-
-            findPaths(nextStation,nextArrival,destinationStation,currentPath,usedTrains,allSolutions,maxDepth);
-
-            currentPath.remove(currentPath.size()-1);
-            usedTrains.remove(candidate);
-        }
-    }
-
-    private boolean reachesDestination(Train train,String station){
-        if(train.getArrivalStation().equals(station))return true;
-        return train.getTrainStop().stream().anyMatch(stop->stop.getStopStation().equals(station));
-    }
-
-    private LocalDateTime getDepartureFrom(Train train,String station){
-        if(train.getDepartureStation().equals(station))return train.getScheduledDeparture();
-        return train.getTrainStop().stream().filter(stop->stop.getStopStation().equals(station))
-                .map(TrainStop::getStopDepartureDate).findFirst().orElse(null);
-    }
-
-    private LocalDateTime getArrivalAt(Train train, String station) {
-        if (station == null) return null;
-
-        if (train.getArrivalStation().equals(station)) {
-            return train.getScheduledArrival();
-        }
-        if (train.getDepartureStation().equals(station)) {
-            return train.getScheduledDeparture(); // ritorna la partenza se stazione di partenza
-        }
-        return train.getTrainStop().stream()
-                .filter(stop -> stop.getStopStation().equals(station))
-                .map(TrainStop::getStopArrivalDate)
-                .findFirst()
-                .orElse(null);
-    }
-
-    private String getArrivalStationFrom(Train train, String fromStation) {
-        // Se la stazione di partenza è fromStation, restituisci il primo stop (se c'è)
-        if (train.getDepartureStation().equals(fromStation)) {
-            if (!train.getTrainStop().isEmpty()) {
-                return train.getTrainStop().get(0).getStopStation();
-            } else {
-                return train.getArrivalStation(); // treno diretto senza stop
+            // 👇 NOVITÀ: se questo treno arriva alla destinazione, proponi SOLO il diretto
+            boolean reachesDirect = downstream.stream().anyMatch(h -> destination.equals(h.station));
+            if (reachesDirect) {
+                solutions.add(new ArrayList<>(currentPath));
+                // backtrack: non esplorare discese intermedie che porterebbero a soluzioni peggiori
+                currentPath.remove(currentPath.size() - 1);
+                usedTrains.remove(train);
+                continue;
             }
-        }
 
-        // Cerca nella lista degli stop
-        List<TrainStop> stops = train.getTrainStop();
-        for (int i = 0; i < stops.size(); i++) {
-            if (stops.get(i).getStopStation().equals(fromStation)) {
-                if (i + 1 < stops.size()) {
-                    return stops.get(i + 1).getStopStation(); // prossimo stop
-                } else {
-                    return train.getArrivalStation(); // ultimo stop → destinazione finale
+            // Altrimenti, se sono consentiti i cambi, esplora le discese intermedie
+            if (currentPath.size() < maxLegs) {
+                for (NextHop hop : downstream) {
+                    String nextStation = hop.station;
+                    if (visitedStations.contains(nextStation)) continue;
+
+                    visitedStations.add(nextStation);
+                    dfs(nextStation, destination, hop.arrival,
+                            currentPath, usedTrains, visitedStations, solutions, maxLegs);
+                    visitedStations.remove(nextStation);
                 }
             }
-        }
 
-        return null; // fromStation non trovata
+            // backtrack
+            currentPath.remove(currentPath.size() - 1);
+            usedTrains.remove(train);
+        }
     }
 
+    private LocalDateTime departureAt(Train train, String station) {
+        if (station.equals(train.getDepartureStation())) return train.getScheduledDeparture();
+        for (TrainStop s : train.getTrainStop()) {
+            if (station.equals(s.getStopStation())) return s.getStopDepartureDate();
+        }
+        return null;
+    }
 
+    private List<NextHop> downstreamStops(Train train, String fromStation) {
+        List<NextHop> result = new ArrayList<>();
+        List<Node> route = buildRoute(train);
+        int idx = indexOfStation(route, fromStation);
+        if (idx < 0) return result;
+
+        for (int i = idx + 1; i < route.size(); i++) {
+            Node n = route.get(i);
+            if (n.arrival != null) result.add(new NextHop(n.station, n.arrival));
+        }
+        return result;
+    }
+
+    private List<Node> buildRoute(Train train) {
+        List<Node> route = new ArrayList<>();
+        route.add(new Node(train.getDepartureStation(), null, train.getScheduledDeparture()));
+        for (TrainStop s : train.getTrainStop()) {
+            route.add(new Node(s.getStopStation(), s.getStopArrivalDate(), s.getStopDepartureDate()));
+        }
+        route.add(new Node(train.getArrivalStation(), train.getScheduledArrival(), null));
+        return route;
+    }
+
+    private int indexOfStation(List<Node> route, String station) {
+        for (int i = 0; i < route.size(); i++) if (route.get(i).station.equals(station)) return i;
+        return -1;
+    }
+
+    private static class Node {
+        final String station;
+        final LocalDateTime arrival;   // null per la prima
+        final LocalDateTime departure; // null per l’ultima
+        Node(String station, LocalDateTime arrival, LocalDateTime departure) {
+            this.station = station; this.arrival = arrival; this.departure = departure;
+        }
+    }
+
+    private static class NextHop {
+        final String station;
+        final LocalDateTime arrival;
+        NextHop(String station, LocalDateTime arrival) {
+            this.station = station; this.arrival = arrival;
+        }
+    }
 }
