@@ -47,7 +47,7 @@ class TravelComposerIntegrationTest {
                 "Roma Termini",
                 "Bagnara",
                 LocalDateTime.of(2025, 8, 1, 16, 30),
-                true,
+                false,
                 1,
                 false
         );
